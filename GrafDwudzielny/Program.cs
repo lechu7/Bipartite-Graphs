@@ -14,6 +14,7 @@ namespace GrafDwudzielny
         [STAThread]
         static void Main()
         {
+            //hello xD;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
