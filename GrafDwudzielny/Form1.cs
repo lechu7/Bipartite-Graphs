@@ -16,5 +16,11 @@ namespace GrafDwudzielny
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+          bool wynik= GrafDwudzielny.Program.sprawdz();
+          MessageBox.Show(wynik.ToString());
+        }
     }
 }
