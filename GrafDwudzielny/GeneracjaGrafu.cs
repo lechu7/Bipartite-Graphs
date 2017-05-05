@@ -13,8 +13,8 @@ namespace GrafDwudzielny
 {
     class GeneracjaGrafu
     {
-        public static Form1 glowna = GrafDwudzielny.Form1.getInstance();
-        public static void generateGraph(string algGrafu)
+       
+        public static Image generateGraph(string algorytmGrafu)
         {
         
 
@@ -28,14 +28,16 @@ namespace GrafDwudzielny
                                               registerLayoutPluginCommand);
            
            
-            byte[] output = wrapper.GenerateGraph(algGrafu, Enums.GraphReturnType.Png);
+            byte[] output = wrapper.GenerateGraph(algorytmGrafu, Enums.GraphReturnType.Png);
 
+            // File.Delete("img.png");
+            Image tmp;
             using (var ms = new MemoryStream(output))
             {
-                Image.FromStream(ms).Save("img.png");   
+               tmp= Image.FromStream(ms);
             }
-            
-        
+
+            return tmp;
 
 
         }

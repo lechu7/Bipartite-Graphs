@@ -13,7 +13,7 @@ namespace GrafDwudzielny
     public partial class Form1 : Form
     {
         public static Form1 INSTANCE;
-        public Form1()
+       private Form1()
         {
             InitializeComponent();
        
@@ -28,10 +28,15 @@ namespace GrafDwudzielny
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            GeneracjaGrafu.generateGraph("digraph{a -> b; b -> c; c -> a;}");//Ten string będzie edytowany
-            pictureBox1.BackgroundImage = Image.FromFile("img.png");
+         //   GeneracjaGrafu.generateGraph("digraph{a -> b; b -> c; c -> a;}");//Ten string będzie edytowany
             bool wynik= Silnik.sprawdz();
           MessageBox.Show(wynik.ToString());
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            pictureBox1.BackgroundImage = GeneracjaGrafu.generateGraph(GeneracjaStringa.GenerujString());
+            checkBox1.Enabled = false;
         }
     }
 }
