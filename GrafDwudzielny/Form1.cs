@@ -28,7 +28,8 @@ namespace GrafDwudzielny
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            GeneracjaGrafu.generateGraph();
+            GeneracjaGrafu.generateGraph("digraph{a -> b; b -> c; c -> a;}");//Ten string będzie edytowany
+            pictureBox1.BackgroundImage = Image.FromFile("img.png");
             bool wynik= Silnik.sprawdz();
           MessageBox.Show(wynik.ToString());
         }

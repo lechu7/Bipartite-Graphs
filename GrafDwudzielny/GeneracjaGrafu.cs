@@ -14,28 +14,30 @@ namespace GrafDwudzielny
     class GeneracjaGrafu
     {
         public static Form1 glowna = GrafDwudzielny.Form1.getInstance();
-        public static byte[] generateGraph()
+        public static void generateGraph(string algGrafu)
         {
-
-
-            // These three instances can be injected via the IGetStartProcessQuery, 
-            //                                               IGetProcessStartInfoQuery and 
-            //                                               IRegisterLayoutPluginCommand interfaces
+        
 
             var getStartProcessQuery = new GetStartProcessQuery();
             var getProcessStartInfoQuery = new GetProcessStartInfoQuery();
             var registerLayoutPluginCommand = new RegisterLayoutPluginCommand(getProcessStartInfoQuery, getStartProcessQuery);
 
-            // GraphGeneration can be injected via the IGraphGeneration interface
 
             var wrapper = new GraphGeneration(getStartProcessQuery,
                                               getProcessStartInfoQuery,
                                               registerLayoutPluginCommand);
            
            
-            byte[] output = wrapper.GenerateGraph("digraph{a -> b; b -> c; c -> a;}", Enums.GraphReturnType.Png);
-            return output;
-           
+            byte[] output = wrapper.GenerateGraph(algGrafu, Enums.GraphReturnType.Png);
+
+            using (var ms = new MemoryStream(output))
+            {
+                Image.FromStream(ms).Save("img.png");   
+            }
+            
+        
+
+
         }
     }
 }
