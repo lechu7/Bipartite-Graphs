@@ -44,9 +44,6 @@ namespace GrafDwudzielny
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //Czyszczenie dopisz swoje RAFAŁ
-
-
             checkBox1.Enabled = true;
             textBox1.Text = "";
             textBox2.Text = "";
