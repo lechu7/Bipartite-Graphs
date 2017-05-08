@@ -28,8 +28,8 @@ namespace GrafDwudzielny
             return INSTANCE;
         }
 
-        private void button1_Click(object sender, EventArgs e)//DO EDYCJI ŻEBY SAMO SIĘ ROBIŁO CO DODANIE CZEGOŚ 
-        {//BEZ WYSKAKUJĄCYCH OKIENEK TYLKO LABEL DODAć.
+        private void button1_Click(object sender, EventArgs e)//DO EDYCJI ŻEBY SAMO SIĘ ROBIŁO CO DODANIE CZEGOŚ  // nie jestem pewnien czy to dobry pomysł
+        {//BEZ WYSKAKUJĄCYCH OKIENEK TYLKO LABEL DODAć. //Popieram, to było tylko tymczasowe rozwiązanie ;)
           bool wynik= Silnik.sprawdz();
           MessageBox.Show(wynik.ToString());
         }
@@ -40,7 +40,6 @@ namespace GrafDwudzielny
             textBox1.Text = "";
             textBox2.Text = "";
             checkBox1.Enabled = false;
-            checkBox1.Checked = false;
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -52,6 +51,7 @@ namespace GrafDwudzielny
             textBox1.Text = "";
             textBox2.Text = "";
             pictureBox1.Image = null;
+            Silnik.macierzSasiedztwa = new List<List<int>>();
         }
     }
 }

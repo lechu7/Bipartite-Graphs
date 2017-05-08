@@ -10,14 +10,14 @@ namespace GrafDwudzielny
     {
         public static Form1 glowna = Form1.getInstance();
         static string komenda = "";
-        static string pamiec = "";
-       public static List<string> listaWierzcholkow = new List<string>();
-       static int indexGlowny = 0;
-       static int indexitemow = 0;
+        static List<string> listaWierzcholkow = new List<string>();
+        static int indexGlowny = 0;
+        static int indexitemow = 0;
 
 
         public static string GenerujString()
         {
+            string[] tabWierzcholkow = glowna.textBox1.Text.Split(',');
             string [] tabSasiedzi = glowna.textBox2.Text.Split(',');
             komenda = "";
 
@@ -25,17 +25,27 @@ namespace GrafDwudzielny
             {
                 komenda += "digraph{";
 
-                sprawdzCzyIstnieje(glowna.textBox1.Text);
-                indexGlowny = indexitemow;
-
-                komenda += pamiec;
-                foreach (string item in tabSasiedzi)
+                foreach (string Wierzcholek in tabWierzcholkow)
                 {
-                    sprawdzCzyIstnieje(item);
-                    sprawdzMacierz();
-                    Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
-                  komenda += " "+glowna.textBox1.Text +" -> "+item+";";
-                    pamiec += " " + glowna.textBox1.Text + " -> " + item + ";";
+                    sprawdzCzyIstnieje(Wierzcholek);
+                    indexGlowny = indexitemow;
+
+                    foreach (string item in tabSasiedzi)
+                    {
+                        sprawdzCzyIstnieje(item);
+                        sprawdzMacierz();
+                        Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
+                    }
+                }
+                for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
+                {
+                    for (int j = 0; j < Silnik.macierzSasiedztwa.Count; j++)
+                    {
+                        for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
+                        {
+                            komenda += " " + listaWierzcholkow[i] + " -> " + listaWierzcholkow[j] + ";";
+                        }
+                    }
                 }
 
             }
@@ -44,23 +54,32 @@ namespace GrafDwudzielny
             {
                 komenda += "graph{";
 
-                sprawdzCzyIstnieje(glowna.textBox1.Text);
-                indexGlowny = indexitemow;
-
-                komenda += pamiec;
-                foreach (string item in tabSasiedzi)
+                foreach (string Wierzcholek in tabWierzcholkow)
                 {
-                    sprawdzCzyIstnieje(item);
-                    sprawdzMacierz();
-                    Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
-                    Silnik.macierzSasiedztwa[indexitemow][indexGlowny]++;
-                    komenda += " " + glowna.textBox1.Text + " -- " + item + ";";
-                    pamiec += " " + glowna.textBox1.Text + " -- " + item + ";";
+                    sprawdzCzyIstnieje(Wierzcholek);
+                    indexGlowny = indexitemow;
+
+                    foreach (string item in tabSasiedzi)
+                    {
+                        sprawdzCzyIstnieje(item);
+                        sprawdzMacierz();
+                        Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
+                        Silnik.macierzSasiedztwa[indexitemow][indexGlowny]++;
+                    }
+                }
+
+                for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
+                {
+                    for (int j = i; j < Silnik.macierzSasiedztwa.Count; j++)
+                    {
+                        for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
+                        {
+                            komenda += " " + listaWierzcholkow[i] + " -- " + listaWierzcholkow[j] + ";";
+                        }
+                    }
                 }
             }
-
             komenda += "}";
-            pamiec += glowna.textBox1.Text + ";";
             return komenda;
         }
       static  void sprawdzCzyIstnieje(string wierzcholek)
@@ -76,7 +95,6 @@ namespace GrafDwudzielny
             }
             if (czyIstniejeWierzcholek == false)
             {
-             //   komenda += glowna.textBox1.Text + ";";
                 listaWierzcholkow.Add(wierzcholek);
                 indexitemow = listaWierzcholkow.Count-1;
             }

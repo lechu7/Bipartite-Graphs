@@ -9,11 +9,11 @@ namespace GrafDwudzielny
     class Silnik
     {
        public static List<List<int>> macierzSasiedztwa = new List<List<int>>();
-        static List<List<int>> macierzDrzewowa = new List<List<int>>();
-        static List<int> prev = new List<int>();
-        static List<int> post = new List<int>();
+        static List<List<int>> macierzDrzewowa;
+        static List<int> prev;
+        static List<int> post;
         static int licznik;
-        static List<bool> visited = new List<bool>();
+        static List<bool> visited;
 
         static void DFS()
         {
@@ -45,6 +45,10 @@ namespace GrafDwudzielny
         static void Inicjacja()
         {
             List<int> tymczasowa = new List<int>();
+            macierzDrzewowa = new List<List<int>>();
+            visited = new List<bool>();
+            prev = new List<int>();
+            post = new List<int>();
             int n = macierzSasiedztwa.Count;
             for (int i = 0; i < n; i++)
             {
