@@ -16,7 +16,8 @@ namespace GrafDwudzielny
        private Form1()
         {
             InitializeComponent();
-       
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+
         }
 
         public static Form1 getInstance()
@@ -26,17 +27,31 @@ namespace GrafDwudzielny
 
             return INSTANCE;
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
-         //   GeneracjaGrafu.generateGraph("digraph{a -> b; b -> c; c -> a;}");//Ten string będzie edytowany
-            bool wynik= Silnik.sprawdz();
+
+        private void button1_Click(object sender, EventArgs e)//DO EDYCJI ŻEBY SAMO SIĘ ROBIŁO CO DODANIE CZEGOŚ 
+        {//BEZ WYSKAKUJĄCYCH OKIENEK TYLKO LABEL DODAć.
+          bool wynik= Silnik.sprawdz();
           MessageBox.Show(wynik.ToString());
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            pictureBox1.BackgroundImage = GeneracjaGrafu.generateGraph(GeneracjaStringa.GenerujString());
+            pictureBox1.Image = GeneracjaGrafu.generateGraph(GeneracjaStringa.GenerujString());
+            textBox1.Text = "";
+            textBox2.Text = "";
             checkBox1.Enabled = false;
+            checkBox1.Checked = false;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Czyszczenie dopisz swoje RAFAŁ
+
+
+            checkBox1.Enabled = true;
+            textBox1.Text = "";
+            textBox2.Text = "";
+            pictureBox1.Image = null;
         }
     }
 }

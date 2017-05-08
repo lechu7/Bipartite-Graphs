@@ -30,7 +30,6 @@ namespace GrafDwudzielny
            
             byte[] output = wrapper.GenerateGraph(algorytmGrafu, Enums.GraphReturnType.Png);
 
-            // File.Delete("img.png");
             Image tmp;
             using (var ms = new MemoryStream(output))
             {
