@@ -9,42 +9,17 @@ namespace GrafDwudzielny
     class GeneracjaStringa
     {
         public static Form1 glowna = Form1.getInstance();
-        static string komenda = "";
         static List<string> listaWierzcholkow = new List<string>();
         static int indexGlowny = 0;
         static int indexitemow = 0;
+        static string komenda = "";
 
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public static string GenerujString()
         {
             string[] tabWierzcholkow = glowna.textBox1.Text.Split(',');
             string[] tabSasiedzi = glowna.textBox2.Text.Split(',');
             komenda = "";
-
-            if (glowna.checkBox1.Checked == true)//czy graf skierowany
-            {
-                komenda += "digraph{";
-                if (glowna.textBox1.Text != "" && glowna.textBox2.Text == "")//TU POPRAWIć GDY G SKIEROWANY I DODAJĘ TYLKO WIERZCHOŁEK
-                {
-                    sprawdzCzyIstnieje(glowna.textBox1.Text);
-                    sprawdzMacierz();
-                    //foreach (string Wierzcholek in tabWierzcholkow)
-                    //{
-
-                    //    indexGlowny = indexitemow;
-                    //    sprawdzCzyIstnieje(glowna.textBox1.Text);
-                    //    
-                    //}
-                    komenda += " " + glowna.textBox1.Text + ";";
-                }
-
-
-                else
-                {
 
                     foreach (string Wierzcholek in tabWierzcholkow)
                     {
@@ -64,57 +39,35 @@ namespace GrafDwudzielny
                         {
                             for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
                             {
-                                komenda += " " + listaWierzcholkow[i] + " -> " + listaWierzcholkow[j] + ";";
+                        if (listaWierzcholkow[j] != "")
+                        {
+                            komenda += " " + listaWierzcholkow[i] + " -> " + listaWierzcholkow[j] + ";";
+
+                        }
+                        else
+                        {
+                            komenda += " " + listaWierzcholkow[i] + ";";
+                        }
+                  
                             }
                         }
                     }
 
-                }
+
+
+            if (glowna.checkBox1.Checked==true)
+            {
+                return "digraph{"+ komenda + "}" ;
             }
             else
             {
-
-
-                if (glowna.textBox1.Text != "" && glowna.textBox2.Text == "")//TU POPRAWIć GDY G NIESKIEROWANY I DODAJĘ TYLKO WIERZCHOŁEK
-                {
-                    komenda += "graph{" + glowna.textBox1.Text;
-                }
-
-
-
-                else
-                {
-                    komenda += "graph{";
-
-                    foreach (string Wierzcholek in tabWierzcholkow)
-                    {
-                        sprawdzCzyIstnieje(Wierzcholek);
-                        indexGlowny = indexitemow;
-
-                        foreach (string item in tabSasiedzi)
-                        {
-                            sprawdzCzyIstnieje(item);
-                            sprawdzMacierz();
-                            Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
-                            Silnik.macierzSasiedztwa[indexitemow][indexGlowny]++;
-                        }
-                    }
-
-                    for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
-                    {
-                        for (int j = i; j < Silnik.macierzSasiedztwa.Count; j++)
-                        {
-                            for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
-                            {
-                                komenda += " " + listaWierzcholkow[i] + " -- " + listaWierzcholkow[j] + ";";
-                            }
-                        }
-                    }
-                }
+                komenda = komenda.Replace("->", "--");
+                return "graph{" + komenda + "}";
             }
-            komenda += "}";
-            return komenda;
         }
+
+
+
         static void sprawdzCzyIstnieje(string wierzcholek)
         {
             bool czyIstniejeWierzcholek = false;

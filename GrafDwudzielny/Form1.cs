@@ -13,13 +13,15 @@ namespace GrafDwudzielny
     public partial class Form1 : Form
     {
         public static Form1 INSTANCE;
+     
+
         private Form1()
         {
             InitializeComponent();
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             label5.Visible = false;
 
-            checkBox1.Checked = true;
+        //    checkBox1.Checked = true;
         }
 
         public static Form1 getInstance()
@@ -66,7 +68,7 @@ namespace GrafDwudzielny
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Czxy chcesz wyczyścic macierz?", "Czyszczenie", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Czy chcesz wyczyścic macierz?", "Czyszczenie", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 button1.Enabled = false;
