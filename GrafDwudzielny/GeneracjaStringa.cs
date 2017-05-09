@@ -13,6 +13,7 @@ namespace GrafDwudzielny
         static int indexGlowny = 0;
         static int indexitemow = 0;
         static string komenda = "";
+        static List<int> Puste = new List<int>();
 
 
         public static string GenerujString()
@@ -30,7 +31,11 @@ namespace GrafDwudzielny
                         {
                             sprawdzCzyIstnieje(item);
                             sprawdzMacierz();
-                            Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
+                            if (indexGlowny != indexitemow)
+                            {
+
+                                Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
+                            }
                         }
                     }
                     for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
@@ -39,18 +44,13 @@ namespace GrafDwudzielny
                         {
                             for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
                             {
-                        if (listaWierzcholkow[j] != "")
-                        {
-                            komenda += " " + listaWierzcholkow[i] + " -> " + listaWierzcholkow[j] + ";";
-
-                        }
-                        else
-                        {
-                            komenda += " " + listaWierzcholkow[i] + ";";
-                        }
-                  
+                                    komenda += " " + listaWierzcholkow[i] + " -> " + listaWierzcholkow[j] + ";";                  
                             }
                         }
+                    }
+                    for (int m = 0; m < Puste.Count; m++)
+                    {
+                        komenda += " " + listaWierzcholkow[Puste[m]] + ";";
                     }
 
 
@@ -70,19 +70,34 @@ namespace GrafDwudzielny
 
         static void sprawdzCzyIstnieje(string wierzcholek)
         {
-            bool czyIstniejeWierzcholek = false;
-            for (int i = 0; i < listaWierzcholkow.Count; i++)
+            if (wierzcholek != "")
             {
-                if (listaWierzcholkow[i] == wierzcholek)
+                bool czyIstniejeWierzcholek = false;
+                for (int i = 0; i < listaWierzcholkow.Count; i++)
                 {
-                    czyIstniejeWierzcholek = true;
-                    indexitemow = i;
+                    if (listaWierzcholkow[i] == wierzcholek)
+                    {
+                        for (int m = 0; m < Puste.Count; m++)
+                        {
+                            if (Puste[m]==i)
+                            {
+                                Puste.RemoveAt(m);
+                                break;
+                            }
+                        }
+                        czyIstniejeWierzcholek = true;
+                        indexitemow = i;
+                    }
+                }
+                if (czyIstniejeWierzcholek == false)
+                {
+                    listaWierzcholkow.Add(wierzcholek);
+                    indexitemow = listaWierzcholkow.Count - 1;
                 }
             }
-            if (czyIstniejeWierzcholek == false)
+            else
             {
-                listaWierzcholkow.Add(wierzcholek);
-                indexitemow = listaWierzcholkow.Count - 1;
+                Puste.Add(indexitemow);
             }
         }
         static void sprawdzMacierz()
