@@ -57,10 +57,10 @@ namespace GrafDwudzielny
             if (textBox1.Text != "")
             {
                 button1.Enabled = true;
+                checkBox1.Enabled = false;
                 pictureBox1.Image = GeneracjaGrafu.generateGraph(GeneracjaStringa.GenerujString());
                 textBox1.Text = "";
                 textBox2.Text = "";
-                checkBox1.Enabled = false;
                 label5.Visible = false;
             }
 
