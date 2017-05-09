@@ -8,12 +8,13 @@ namespace GrafDwudzielny
 {
     class Silnik
     {
-       public static List<List<int>> macierzSasiedztwa = new List<List<int>>();
+        public static List<List<int>> macierzSasiedztwa = new List<List<int>>();
         static List<List<int>> macierzDrzewowa;
         static List<int> prev;
         static List<int> post;
         static int licznik;
         static List<bool> visited;
+        static List<int> niewykryte;
 
         static void DFS()
         {
@@ -22,6 +23,10 @@ namespace GrafDwudzielny
             {
                 if (!visited[i])
                 {
+                    if (i != 0)
+                    {
+                        niewykryte.Add(i);
+                    }
                     explore(i);
                 }
             }
@@ -49,6 +54,7 @@ namespace GrafDwudzielny
             visited = new List<bool>();
             prev = new List<int>();
             post = new List<int>();
+            niewykryte = new List<int>();
             int n = macierzSasiedztwa.Count;
             for (int i = 0; i < n; i++)
             {
@@ -72,16 +78,46 @@ namespace GrafDwudzielny
             DFS();
             for (int i = 0; i < macierzSasiedztwa.Count; i++)
             {
+                bool niewykryty = false;
+                int status = 2;
+                for (int k = 0; k < niewykryte.Count; k++)
+                {
+                    if (niewykryte[k] == i)
+                    {
+                        niewykryty = true;
+                        break;
+                    }
+                }
                 for (int j = 0; j < macierzSasiedztwa.Count; j++)
                 {
                     if (macierzSasiedztwa[i][j] != macierzDrzewowa[i][j])
                     {
                         if ((Math.Max(prev[i], prev[j]) - Math.Min(prev[i], prev[j]) + 1) % 2 == 1)
                         {
-                            return false;
+                            if (niewykryty == false)
+                            {
+                                return false;
+                            }
+                            else
+                            {
+                                if (status == 0)
+                                {
+                                    return false;
+                                }
+                                else status = 1;
+                            }
+                        }
+                        if (niewykryty == true && (Math.Max(prev[i], prev[j]) - Math.Min(prev[i], prev[j]) + 1) % 2 == 0)
+                        {
+                            if (status == 1)
+                            {
+                                return false;
+                            }
+                            else status = 0;
                         }
                     }
                 }
+                status = 0;
             }
             return true;
         }
