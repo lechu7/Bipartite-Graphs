@@ -15,66 +15,99 @@ namespace GrafDwudzielny
         static int indexitemow = 0;
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public static string GenerujString()
         {
             string[] tabWierzcholkow = glowna.textBox1.Text.Split(',');
-            string [] tabSasiedzi = glowna.textBox2.Text.Split(',');
+            string[] tabSasiedzi = glowna.textBox2.Text.Split(',');
             komenda = "";
 
             if (glowna.checkBox1.Checked == true)//czy graf skierowany
             {
                 komenda += "digraph{";
-
-                foreach (string Wierzcholek in tabWierzcholkow)
+                if (glowna.textBox1.Text != "" && glowna.textBox2.Text == "")//TU POPRAWIć GDY G SKIEROWANY I DODAJĘ TYLKO WIERZCHOŁEK
                 {
-                    sprawdzCzyIstnieje(Wierzcholek);
-                    indexGlowny = indexitemow;
+                    sprawdzCzyIstnieje(glowna.textBox1.Text);
+                    sprawdzMacierz();
+                    //foreach (string Wierzcholek in tabWierzcholkow)
+                    //{
 
-                    foreach (string item in tabSasiedzi)
-                    {
-                        sprawdzCzyIstnieje(item);
-                        sprawdzMacierz();
-                        Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
-                    }
+                    //    indexGlowny = indexitemow;
+                    //    sprawdzCzyIstnieje(glowna.textBox1.Text);
+                    //    
+                    //}
+                    komenda += " " + glowna.textBox1.Text + ";";
                 }
-                for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
+
+
+                else
                 {
-                    for (int j = 0; j < Silnik.macierzSasiedztwa.Count; j++)
+
+                    foreach (string Wierzcholek in tabWierzcholkow)
                     {
-                        for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
+                        sprawdzCzyIstnieje(Wierzcholek);
+                        indexGlowny = indexitemow;
+
+                        foreach (string item in tabSasiedzi)
                         {
-                            komenda += " " + listaWierzcholkow[i] + " -> " + listaWierzcholkow[j] + ";";
+                            sprawdzCzyIstnieje(item);
+                            sprawdzMacierz();
+                            Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
                         }
                     }
+                    for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
+                    {
+                        for (int j = 0; j < Silnik.macierzSasiedztwa.Count; j++)
+                        {
+                            for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
+                            {
+                                komenda += " " + listaWierzcholkow[i] + " -> " + listaWierzcholkow[j] + ";";
+                            }
+                        }
+                    }
+
                 }
-
             }
-
             else
             {
-                komenda += "graph{";
 
-                foreach (string Wierzcholek in tabWierzcholkow)
+
+                if (glowna.textBox1.Text != "" && glowna.textBox2.Text == "")//TU POPRAWIć GDY G NIESKIEROWANY I DODAJĘ TYLKO WIERZCHOŁEK
                 {
-                    sprawdzCzyIstnieje(Wierzcholek);
-                    indexGlowny = indexitemow;
-
-                    foreach (string item in tabSasiedzi)
-                    {
-                        sprawdzCzyIstnieje(item);
-                        sprawdzMacierz();
-                        Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
-                        Silnik.macierzSasiedztwa[indexitemow][indexGlowny]++;
-                    }
+                    komenda += "graph{" + glowna.textBox1.Text;
                 }
 
-                for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
+
+
+                else
                 {
-                    for (int j = i; j < Silnik.macierzSasiedztwa.Count; j++)
+                    komenda += "graph{";
+
+                    foreach (string Wierzcholek in tabWierzcholkow)
                     {
-                        for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
+                        sprawdzCzyIstnieje(Wierzcholek);
+                        indexGlowny = indexitemow;
+
+                        foreach (string item in tabSasiedzi)
                         {
-                            komenda += " " + listaWierzcholkow[i] + " -- " + listaWierzcholkow[j] + ";";
+                            sprawdzCzyIstnieje(item);
+                            sprawdzMacierz();
+                            Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
+                            Silnik.macierzSasiedztwa[indexitemow][indexGlowny]++;
+                        }
+                    }
+
+                    for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
+                    {
+                        for (int j = i; j < Silnik.macierzSasiedztwa.Count; j++)
+                        {
+                            for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
+                            {
+                                komenda += " " + listaWierzcholkow[i] + " -- " + listaWierzcholkow[j] + ";";
+                            }
                         }
                     }
                 }
@@ -82,9 +115,9 @@ namespace GrafDwudzielny
             komenda += "}";
             return komenda;
         }
-      static  void sprawdzCzyIstnieje(string wierzcholek)
+        static void sprawdzCzyIstnieje(string wierzcholek)
         {
-           bool czyIstniejeWierzcholek = false;
+            bool czyIstniejeWierzcholek = false;
             for (int i = 0; i < listaWierzcholkow.Count; i++)
             {
                 if (listaWierzcholkow[i] == wierzcholek)
@@ -96,25 +129,25 @@ namespace GrafDwudzielny
             if (czyIstniejeWierzcholek == false)
             {
                 listaWierzcholkow.Add(wierzcholek);
-                indexitemow = listaWierzcholkow.Count-1;
+                indexitemow = listaWierzcholkow.Count - 1;
             }
         }
-      static void sprawdzMacierz()
-      {
-          if (listaWierzcholkow.Count!=Silnik.macierzSasiedztwa.Count)
-          {
-              for (int j = Silnik.macierzSasiedztwa.Count; j < listaWierzcholkow.Count; j++)
-              {
-                  List<int> tymczasowa = new List<int>();
-                  for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
-                  {
-                      Silnik.macierzSasiedztwa[i].Add(0);
-                      tymczasowa.Add(0);
-                  }
-                  tymczasowa.Add(0);
-                  Silnik.macierzSasiedztwa.Add(tymczasowa);
-              }
-          }
-      }
+        static void sprawdzMacierz()
+        {
+            if (listaWierzcholkow.Count != Silnik.macierzSasiedztwa.Count)
+            {
+                for (int j = Silnik.macierzSasiedztwa.Count; j < listaWierzcholkow.Count; j++)
+                {
+                    List<int> tymczasowa = new List<int>();
+                    for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
+                    {
+                        Silnik.macierzSasiedztwa[i].Add(0);
+                        tymczasowa.Add(0);
+                    }
+                    tymczasowa.Add(0);
+                    Silnik.macierzSasiedztwa.Add(tymczasowa);
+                }
+            }
+        }
     }
 }
