@@ -71,17 +71,21 @@ namespace GrafDwudzielny
             DialogResult dialogResult = MessageBox.Show("Czy chcesz wyczyścic macierz?", "Czyszczenie", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
-                button1.Enabled = false;
-                label5.Visible = false;
-                checkBox1.Enabled = true;
-                checkBox1.Checked = false;
-                textBox1.Text = "";
-                textBox2.Text = "";
-                pictureBox1.Image = null;
-                Silnik.macierzSasiedztwa = new List<List<int>>();
+                Czyszczenie();
             }
 
 
+        }
+        public void Czyszczenie()
+        {
+            button1.Enabled = false;
+            label5.Visible = false;
+            checkBox1.Enabled = true;
+            checkBox1.Checked = false;
+            textBox1.Text = "";
+            textBox2.Text = "";
+            pictureBox1.Image = null;
+            Silnik.macierzSasiedztwa = new List<List<int>>();
         }
     }
 }
