@@ -12,14 +12,10 @@ namespace GrafDwudzielny
         static List<string> listaWierzcholkow = new List<string>();
         static int indexGlowny = 0;
         static int indexitemow = 0;
-<<<<<<< HEAD
         static string komenda = "";
         static List<int> Puste = new List<int>();
 
-=======
-       public  static string komenda = "";
     
->>>>>>> origin/master
 
         public static string GenerujString()
         {
