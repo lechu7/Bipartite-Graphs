@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,7 +47,7 @@
             // button1
             // 
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(651, 8);
+            this.button1.Location = new System.Drawing.Point(586, 12);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(104, 57);
             this.button1.TabIndex = 0;
@@ -116,24 +117,24 @@
             // textBox1
             // 
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox1.Location = new System.Drawing.Point(166, 38);
+            this.textBox1.Location = new System.Drawing.Point(158, 38);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(385, 26);
+            this.textBox1.Size = new System.Drawing.Size(335, 26);
             this.textBox1.TabIndex = 7;
             // 
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.textBox2.Location = new System.Drawing.Point(166, 73);
+            this.textBox2.Location = new System.Drawing.Point(158, 73);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(385, 26);
+            this.textBox2.Size = new System.Drawing.Size(335, 26);
             this.textBox2.TabIndex = 8;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(396, 103);
+            this.button2.Location = new System.Drawing.Point(317, 104);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(85, 23);
             this.button2.TabIndex = 9;
             this.button2.Text = "Dodaj";
             this.button2.UseVisualStyleBackColor = true;
@@ -141,9 +142,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(477, 103);
+            this.button3.Location = new System.Drawing.Point(408, 104);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(85, 23);
             this.button3.TabIndex = 10;
             this.button3.Text = "Czysc";
             this.button3.UseVisualStyleBackColor = true;
@@ -155,10 +156,10 @@
             this.label5.BackColor = System.Drawing.Color.Gainsboro;
             this.label5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.label5.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(580, 79);
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label5.Location = new System.Drawing.Point(509, 72);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(2, 22);
+            this.label5.Size = new System.Drawing.Size(2, 26);
             this.label5.TabIndex = 11;
             // 
             // Form1
@@ -179,6 +180,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximumSize = new System.Drawing.Size(823, 665);
+            this.MinimumSize = new System.Drawing.Size(823, 665);
             this.Name = "Form1";
             this.Text = "Graf Dwudzielny";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
