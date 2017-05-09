@@ -30,6 +30,7 @@ namespace GrafDwudzielny
 
         private void button1_Click(object sender, EventArgs e)//DO EDYCJI ŻEBY SAMO SIĘ ROBIŁO CO DODANIE CZEGOŚ  // nie jestem pewnien czy to dobry pomysł
         {//BEZ WYSKAKUJĄCYCH OKIENEK TYLKO LABEL DODAć. //Popieram, to było tylko tymczasowe rozwiązanie ;)
+        
           bool wynik= Silnik.sprawdz();
           MessageBox.Show(wynik.ToString());
         }
@@ -45,6 +46,7 @@ namespace GrafDwudzielny
         private void button3_Click(object sender, EventArgs e)
         {
             checkBox1.Enabled = true;
+            checkBox1.Checked = false;
             textBox1.Text = "";
             textBox2.Text = "";
             pictureBox1.Image = null;
