@@ -68,7 +68,7 @@ namespace GrafDwudzielny
 
         private void button3_Click(object sender, EventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Czy chcesz wyczyścic macierz?", "Czyszczenie", MessageBoxButtons.YesNo);
+            DialogResult dialogResult = MessageBox.Show("Czy chcesz wyczyścic graf?", "Czyszczenie", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
                 Czyszczenie();
