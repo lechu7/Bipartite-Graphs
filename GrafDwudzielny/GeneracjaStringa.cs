@@ -15,7 +15,7 @@ namespace GrafDwudzielny
         static string komenda = "";
         static List<int> Puste = new List<int>();
 
-    
+
 
         public static string GenerujString()
         {
@@ -23,46 +23,81 @@ namespace GrafDwudzielny
             string[] tabSasiedzi = glowna.textBox2.Text.Split(',');
             komenda = "";
 
-                    foreach (string Wierzcholek in tabWierzcholkow)
-                    {
-                        sprawdzCzyIstnieje(Wierzcholek);
-                        indexGlowny = indexitemow;
 
-                        foreach (string item in tabSasiedzi)
-                        {
-                            sprawdzCzyIstnieje(item);
-                            sprawdzMacierz();
-                            if (indexGlowny != indexitemow)
-                            {
-
-                                Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
-                            }
-                        }
-                    }
-                    for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
-                    {
-                        for (int j = 0; j < Silnik.macierzSasiedztwa.Count; j++)
-                        {
-                            for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
-                            {
-                                    komenda += " " + listaWierzcholkow[i] + " -> " + listaWierzcholkow[j] + ";";                  
-                            }
-                        }
-                    }
-                    for (int m = 0; m < Puste.Count; m++)
-                    {
-                        komenda += " " + listaWierzcholkow[Puste[m]] + ";";
-                    }
-
-
-
-            if (glowna.checkBox1.Checked==true)
+            if (glowna.checkBox1.Checked == true)
             {
-                return "digraph{"+ komenda + "}" ;
+                foreach (string Wierzcholek in tabWierzcholkow)
+                {
+                    sprawdzCzyIstnieje(Wierzcholek);
+                    indexGlowny = indexitemow;
+
+                    foreach (string item in tabSasiedzi)
+                    {
+                        sprawdzCzyIstnieje(item);
+                        sprawdzMacierz();
+                        if (glowna.textBox2.Text != "")
+                        {
+                            Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
+                        }
+                    }
+                }
+                for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
+                {
+                    for (int j = 0; j < Silnik.macierzSasiedztwa.Count; j++)
+                    {
+                        for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
+                        {
+                            komenda += " " + listaWierzcholkow[i] + " -> " + listaWierzcholkow[j] + ";";
+                        }
+                    }
+                }
+                for (int m = 0; m < Puste.Count; m++)
+                {
+                    komenda += " " + listaWierzcholkow[Puste[m]] + ";";
+                }
+                return "digraph{" + komenda + "}";
             }
             else
             {
-                komenda = komenda.Replace("->", "--");
+
+                foreach (string Wierzcholek in tabWierzcholkow)
+                {
+                    sprawdzCzyIstnieje(Wierzcholek);
+                    indexGlowny = indexitemow;
+
+                    foreach (string item in tabSasiedzi)
+                    {
+                        sprawdzCzyIstnieje(item);
+                        sprawdzMacierz();
+                        if (glowna.textBox2.Text != "")
+                        {
+                            if (indexGlowny == indexitemow)
+                            {
+                                Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
+                            }
+                            else
+                            {
+                                Silnik.macierzSasiedztwa[indexGlowny][indexitemow]++;
+                                Silnik.macierzSasiedztwa[indexitemow][indexGlowny]++;
+                            }
+                        }
+                    }
+                }
+
+                for (int i = 0; i < Silnik.macierzSasiedztwa.Count; i++)
+                {
+                    for (int j = i; j < Silnik.macierzSasiedztwa.Count; j++)
+                    {
+                        for (int k = 0; k < Silnik.macierzSasiedztwa[i][j]; k++)
+                        {
+                            komenda += " " + listaWierzcholkow[i] + " -- " + listaWierzcholkow[j] + ";";
+                        }
+                    }
+                }
+                for (int m = 0; m < Puste.Count; m++)
+                {
+                    komenda += " " + listaWierzcholkow[Puste[m]] + ";";
+                }
                 return "graph{" + komenda + "}";
             }
         }

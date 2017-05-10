@@ -38,7 +38,7 @@ namespace GrafDwudzielny
             licznik++;
             for (int j = 0; j < macierzSasiedztwa.Count; j++)
             {
-                if (macierzSasiedztwa[i][j] == 1 && !visited[j])
+                if (macierzSasiedztwa[i][j] > 0 && !visited[j])
                 {
                     macierzDrzewowa[i][j] = 1;
                     explore(j);
@@ -90,30 +90,33 @@ namespace GrafDwudzielny
                 }
                 for (int j = 0; j < macierzSasiedztwa.Count; j++)
                 {
-                    if (macierzSasiedztwa[i][j] != macierzDrzewowa[i][j])
+                    if (i != j)
                     {
-                        if ((Math.Max(prev[i], prev[j]) - Math.Min(prev[i], prev[j]) + 1) % 2 == 1)
+                        if (macierzSasiedztwa[i][j] != macierzDrzewowa[i][j] && macierzDrzewowa[i][j] != 1)
                         {
-                            if (niewykryty == false)
+                            if ((Math.Max(prev[i], prev[j]) - Math.Min(prev[i], prev[j]) + 1) % 2 == 1)
                             {
-                                return false;
-                            }
-                            else
-                            {
-                                if (status == 0)
+                                if (niewykryty == false)
                                 {
                                     return false;
                                 }
-                                else status = 1;
+                                else
+                                {
+                                    if (status == 0)
+                                    {
+                                        return false;
+                                    }
+                                    else status = 1;
+                                }
                             }
-                        }
-                        if (niewykryty == true && (Math.Max(prev[i], prev[j]) - Math.Min(prev[i], prev[j]) + 1) % 2 == 0)
-                        {
-                            if (status == 1)
+                            if (niewykryty == true && (Math.Max(prev[i], prev[j]) - Math.Min(prev[i], prev[j]) + 1) % 2 == 0)
                             {
-                                return false;
+                                if (status == 1)
+                                {
+                                    return false;
+                                }
+                                else status = 0;
                             }
-                            else status = 0;
                         }
                     }
                 }
